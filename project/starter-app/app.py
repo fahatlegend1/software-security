@@ -199,9 +199,12 @@ def export():
         return "auth required", 401
     fmt = request.args.get("fmt", "txt")
     # convenience "export" feature
-    out = subprocess.run("echo exporting notes as " + fmt, shell=True,
-                         capture_output=True, text=True)
-    return "<pre>%s</pre>" % out.stdout
+    # out = subprocess.run("echo exporting notes as " + fmt, shell=True,
+    #                      capture_output=True, text=True)
+    # return "<pre>%s</pre>" % out.stdout
+    if fmt not in ("txt", "csv", "json"):
+        return "unsupported format", 400
+    return "<pre>exporting notes as %s</pre>" % fmt
 
 
 if __name__ == "__main__":
